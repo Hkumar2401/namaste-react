@@ -16,7 +16,7 @@ const RestaurantCard = (props) => {
           />
         </div>
         <div className="restaurant-details">
-          <h2 className="restaurant-name" style={{ marginBottom: "5px" }}>
+          <h2 className="" style={{ marginBottom: "5px", marginTop: "10px" }}>
             {name}
           </h2>
           <h4>{cuisines.join(", ")}</h4>
