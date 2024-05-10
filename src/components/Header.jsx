@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../images/foodlogo.jpg";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 export const Header = () => {
   const [btn, setBtn] = useState("Login");
+
+  const onlineStatus = useOnlineStatus();
 
   return (
     <div className="header">
       <div className="logo-container">
         <Link to={"/"}>
-        <img className="logo" src={Logo} alt="" />
+          <img className="logo" src={Logo} alt="" />
         </Link>
       </div>
       <div className="nav-items">
+        <p>
+          Online Status : <span style={{fontSize: "12px"}}> {onlineStatus ? "🟢" : "🔴"} </span>{" "}
+        </p>
         <p>
           <Link to={"/"}>Home</Link>
         </p>

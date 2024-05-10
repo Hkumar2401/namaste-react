@@ -1,20 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { MENU_API } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import MenuItemCard from "./MenuItemCard";
 import upArrow from "../images/up-arrow.png";
 import downArrow from "../images/down-arrow.png";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  const [resData, setResData] = useState([]);
-
-  const [menuFirstSection, setMenuFirstSection] = useState([]);
-
-  const [menuSecondSection, setMenuSecondSection] = useState([]);
-
-  const [menuThirdSection, setMenuThirdSection] = useState([]);
-
   const [collapsible, setCollapsible] = useState({
     first: { maxHeight: "fit-content" },
     second: { maxHeight: "0" },
@@ -23,30 +15,9 @@ const RestaurantMenu = () => {
 
   const { resId } = useParams();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const resData = useRestaurantMenu(resId);
 
-  const fetchData = async () => {
-    const data = await fetch(MENU_API + resId);
-    const json = await data.json();
-    setResData(json?.data);
-    setMenuFirstSection(
-      json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-        ?.card?.itemCards
-    );
-    setMenuSecondSection(
-      json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card
-        ?.card?.itemCards
-    );
-    setMenuThirdSection(
-      json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card
-        ?.card?.itemCards
-    );
-  };
-  // console.log(resData);
-
-  if (resData.length === 0) {
+  if (resData === null) {
     return (
       <div
         style={{
@@ -144,9 +115,11 @@ const RestaurantMenu = () => {
           </div>
 
           <div className="menu-section-content" style={collapsible.first}>
-            {menuFirstSection?.map((item) => {
-              return <MenuItemCard key={item?.card?.info?.id} item={item} />;
-            })}
+            {resData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards?.map(
+              (item) => {
+                return <MenuItemCard key={item?.card?.info?.id} item={item} />;
+              }
+            )}
           </div>
         </div>
 
@@ -187,15 +160,17 @@ const RestaurantMenu = () => {
           </div>
 
           <div className="menu-section-content" style={collapsible.second}>
-            {menuSecondSection?.map((item) => {
-              return <MenuItemCard key={item?.card?.info?.id} item={item} />;
-            })}
+            {resData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card?.itemCards?.map(
+              (item) => {
+                return <MenuItemCard key={item?.card?.info?.id} item={item} />;
+              }
+            )}
           </div>
         </div>
 
-            {/* Menu Third Section */}
+        {/* Menu Third Section */}
 
-            <div className="menu-section">
+        <div className="menu-section">
           <div
             className="menu-section-heading"
             onClick={() => {
@@ -230,13 +205,13 @@ const RestaurantMenu = () => {
           </div>
 
           <div className="menu-section-content" style={collapsible.third}>
-            {menuThirdSection?.map((item) => {
-              return <MenuItemCard key={item?.card?.info?.id} item={item} />;
-            })}
+            {resData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card?.card?.itemCards?.map(
+              (item) => {
+                return <MenuItemCard key={item?.card?.info?.id} item={item} />;
+              }
+            )}
           </div>
         </div>
-
-        
       </div>
     </div>
   );

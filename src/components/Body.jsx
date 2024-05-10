@@ -3,32 +3,26 @@ import { useState, useEffect } from "react";
 import { RESTAURANT_LIST_API } from "../utils/constants";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
-import resList from "../utils/mockdata";
 
 const Body = () => {
-  const [restaurantList, setRestaurantList] = useState([]);
+  const [restaurantList, setRestaurantList] = useState(null);
 
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState(null);
 
   const [searchText, setSearchText] = useState("");
-
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    setIsLoading(true);
     const data = await fetch(RESTAURANT_LIST_API);
     const json = await data.json();
-    // console.log(json);
-    setIsLoading(false);
     setRestaurantList(
-      json.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredRestaurants(
-      json.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -47,7 +41,7 @@ const Body = () => {
           className="search-button"
           onClick={() => {
             setFilteredRestaurants(
-              restaurantList.filter((res) =>
+              restaurantList?.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
               )
             );
@@ -59,7 +53,7 @@ const Body = () => {
           style={{ margin: "0 10px", cursor: "pointer" }}
           onClick={() => {
             setFilteredRestaurants(
-              restaurantList.filter((res) => res.info.avgRating > 4)
+              restaurantList?.filter((res) => res.info.avgRating > 4)
             );
           }}
         >
@@ -67,16 +61,24 @@ const Body = () => {
         </button>
       </div>
 
-      {isLoading ? (
+      {restaurantList === null ? (
         <div className="shimmer-container">
-          {resList.map((res, i) => (
-            <Shimmer key={i} />
-          ))}
+          <Shimmer />
+          <Shimmer />
+          <Shimmer />
+          <Shimmer />
+          <Shimmer />
+          <Shimmer />
+          <Shimmer />
+          <Shimmer />
         </div>
       ) : (
         <div className="restaurant-container">
-          {filteredRestaurants.map((restaurant) => (
-            <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+          {filteredRestaurants?.map((restaurant) => (
+            <Link
+              key={restaurant.info.id}
+              to={"/restaurants/" + restaurant.info.id}
+            >
               <RestaurantCard resData={restaurant} />
             </Link>
           ))}
