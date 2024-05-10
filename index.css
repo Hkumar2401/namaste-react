@@ -241,3 +241,8 @@
   -webkit-box-orient: vertical;
   font-size: 16px;
 } 
+
+.user-card{
+  border: 1px solid black;
+  margin-top: 10px;
+}
