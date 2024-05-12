@@ -27,10 +27,10 @@ const Body = () => {
   };
 
   return (
-    <div className="body">
-      <div className="search-container">
+    <div className="body mt-5">
+      <div className="search-container p-2 flex justify-center items-center">
         <input
-          className="search-bar"
+          className="search-bar w-[300px] h-8 rounded-s-md border-solid border-black border-2 p-1 focus:outline-[#ee3024]"
           type="text"
           value={searchText}
           onChange={(e) => {
@@ -38,7 +38,7 @@ const Body = () => {
           }}
         />
         <p
-          className="search-button"
+          className="search-button me-5 cursor-pointer h-8 bg-gray-300 hover:text-[#ee3024] hover:bg-gray-200 p-2 flex items-center rounded-e-lg"
           onClick={() => {
             setFilteredRestaurants(
               restaurantList?.filter((res) =>
@@ -50,7 +50,7 @@ const Body = () => {
           Search
         </p>
         <button
-          style={{ margin: "0 10px", cursor: "pointer" }}
+        className="cursor-pointer h-8 bg-gray-300 hover:text-[#ee3024] hover:bg-gray-200 p-2 flex items-center rounded-lg"
           onClick={() => {
             setFilteredRestaurants(
               restaurantList?.filter((res) => res.info.avgRating > 4)
@@ -62,7 +62,7 @@ const Body = () => {
       </div>
 
       {restaurantList === null ? (
-        <div className="shimmer-container">
+        <div className="shimmer-container flex flex-wrap justify-center mt-5">
           <Shimmer />
           <Shimmer />
           <Shimmer />
@@ -73,7 +73,7 @@ const Body = () => {
           <Shimmer />
         </div>
       ) : (
-        <div className="restaurant-container">
+        <div className="restaurant-container flex flex-wrap justify-center mt-5">
           {filteredRestaurants?.map((restaurant) => (
             <Link
               key={restaurant.info.id}

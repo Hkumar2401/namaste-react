@@ -6,25 +6,25 @@ const RestaurantCard = (props) => {
   const { deliveryTime } = props.resData.info.sla;
 
   return (
-    <div className="restaurant-card">
-      <div className="restaurant-card-effect">
+    <div className="restaurant-card w-[350px] h-[400px] border-[1px] border-transparent  hover:border-[#dfdddd] rounded-t-xl rounded-b-lg p-[10px] my-7 mx-4 hover:shadow-zinc-300 hover:shadow-xl">
+      <div className="restaurant-card-effect transition-transform scale-100 hover:scale-95 ease-in hover:ease-out duration-200 ">
         <div className="restaurant-image-container">
           <img
-            className="restaurant-image"
+            className="restaurant-image w-full h-[250px] rounded-t-lg rounded-b-md"
             src={CDN_LINK + cloudinaryImageId}
             alt=""
           />
         </div>
         <div className="restaurant-details">
-          <h2 className="" style={{ marginBottom: "5px", marginTop: "10px" }}>
+          <h2 className="mt-3 mb-1 text-xl font-semibold">
             {name}
           </h2>
-          <h4>{cuisines.join(", ")}</h4>
-          <div style={{ display: "flex", marginTop: "10px" }}>
+          <h4 className="line-clamp-2">{cuisines.join(", ")}</h4>
+          <div className="flex mt-3">
             <h4>{avgRating ? avgRating + " stars" : "NEW"}</h4>
-            <p style={{ padding: "0 10px" }}>•</p>
+            <p className="px-3" >•</p>
             <h4>{deliveryTime} mins</h4>
-            <p style={{ padding: "0 10px" }}>•</p>
+            <p className="px-3">•</p>
             <h4>{costForTwo}</h4>
           </div>
         </div>

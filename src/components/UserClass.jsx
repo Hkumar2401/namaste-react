@@ -23,7 +23,7 @@ class UserClass extends React.Component {
     const {count} = this.state;
     
     return (
-      <div className="user-card">
+      <div className="user-card border-[1px] border-solid border-black mt-3">
         <h1>Count: {count}</h1>
         <button onClick={()=>{
             this.setState({
