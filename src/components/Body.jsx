@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { RESTAURANT_LIST_API } from "../utils/constants";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState(null);
@@ -10,6 +11,8 @@ const Body = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState(null);
 
   const [searchText, setSearchText] = useState("");
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   useEffect(() => {
     fetchData();
