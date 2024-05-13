@@ -1,5 +1,5 @@
-import RestaurantCard from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
+import { useState, useEffect, useContext } from "react";
 import { RESTAURANT_LIST_API } from "../utils/constants";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
@@ -50,7 +50,7 @@ const Body = () => {
           Search
         </p>
         <button
-        className="cursor-pointer h-8 bg-gray-300 hover:text-[#ee3024] hover:bg-gray-200 p-2 flex items-center rounded-lg"
+          className="cursor-pointer h-8 bg-gray-300 hover:text-[#ee3024] hover:bg-gray-200 p-2 flex items-center rounded-lg"
           onClick={() => {
             setFilteredRestaurants(
               restaurantList?.filter((res) => res.info.avgRating > 4)
@@ -79,7 +79,11 @@ const Body = () => {
               key={restaurant.info.id}
               to={"/restaurants/" + restaurant.info.id}
             >
-              <RestaurantCard resData={restaurant} />
+              {restaurant.info.avgRating > 4.3 ? (
+                <RestaurantCardPromoted resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )}
             </Link>
           ))}
         </div>

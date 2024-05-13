@@ -1,12 +1,18 @@
 import { CDN_LINK } from "../utils/constants";
 
 const MenuItemCard = (props) => {
-  const { name, price, defaultPrice, description, imageId } =
+  const { name, price, defaultPrice, description, imageId, itemAttribute } =
     props?.item?.card?.info;
 
+
   return (
-    <div className="menu-item-card flex justify-between items-center border-b-[1px] border-solid border-zinc-300 w-full h-[200px] p-2 cursor-pointer">
+    <div className="menu-item-card flex justify-between items-center border-b-[1px] border-solid border-zinc-300 w-full h-[250px] p-2 cursor-pointer">
       <div className="menu-item-details w-4/5 flex flex-col">
+        <div className={`text-[10px] w-fit border-solid rounded-[4px] ${itemAttribute?.vegClassifier === 'VEG' ? 'border-green-600' : 'border-red-600' } border-[2px] p-[2px] mb-4`}>
+        {
+          itemAttribute?.vegClassifier === 'VEG' ? "🟢" : "🔺"
+        }
+        </div>
         <h2 className="font-semibold text-xl">{name}</h2>
         <h4 className="mt-1 font-semibold">
           {"₹" + (price / 100 || defaultPrice / 100)}

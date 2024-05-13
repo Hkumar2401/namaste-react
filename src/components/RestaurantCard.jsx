@@ -6,7 +6,7 @@ const RestaurantCard = (props) => {
   const { deliveryTime } = props.resData.info.sla;
 
   return (
-    <div className="restaurant-card w-[350px] h-[400px] border-[1px] border-transparent  hover:border-[#dfdddd] rounded-t-xl rounded-b-lg p-[10px] my-7 mx-4 hover:shadow-zinc-300 hover:shadow-xl">
+    <div className="restaurant-card z-10 w-[350px] h-[420px] border-[1px] border-transparent  hover:border-[#dfdddd] rounded-t-xl rounded-b-lg p-[10px] my-7 mx-4 hover:shadow-zinc-300 hover:shadow-xl">
       <div className="restaurant-card-effect transition-transform scale-100 hover:scale-95 ease-in hover:ease-out duration-200 ">
         <div className="restaurant-image-container">
           <img
@@ -32,5 +32,16 @@ const RestaurantCard = (props) => {
     </div>
   );
 };
+
+export const withPromotedLabel = (RestaurantCard) =>{
+  return (props)=>{
+    return (
+      <div>
+        <label className="bg-zinc-600 text-white text-sm p-2 rounded-[5px] absolute z-20 ml-7 mt-3 opacity-90">Promoted</label>
+        <RestaurantCard {...props} />
+      </div>
+    );
+  }
+}
 
 export default RestaurantCard;
