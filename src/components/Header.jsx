@@ -1,15 +1,26 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../images/foodlogo.jpg";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import UserContext from "../utils/UserContext";
+import { useDispatch, useSelector } from "react-redux";
+import { changeUser } from "../utils/userSlice";
 
 export const Header = () => {
-  const [btn, setBtn] = useState("Login");
+  const [logStatus, setLogStatus] = useState(false);
 
   const onlineStatus = useOnlineStatus();
 
-  const {loggedInUser} = useContext(UserContext);
+  const user = useSelector((store)=> store.user.user)
+
+  const cartItems = useSelector((store) => store.cart.items);
+
+  const dispatch = useDispatch();
+
+  const handleClick = () =>{
+    setLogStatus(!logStatus);
+    dispatch(changeUser(!logStatus));
+  }
+
 
   return (
     <div className="header flex items-center justify-between p-[10px] shadow-lg shadow-gray-100">
@@ -20,7 +31,8 @@ export const Header = () => {
       </div>
       <div className="nav-items flex px-3 items-center">
         <p className="px-4 text-lg font-medium">
-          Online Status : <span className="text-sm"> {onlineStatus ? "🟢" : "🔴"} </span>{" "}
+          Online Status :{" "}
+          <span className="text-sm"> {onlineStatus ? "🟢" : "🔴"} </span>{" "}
         </p>
         <p className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">
           <Link to={"/"}>Home</Link>
@@ -31,18 +43,20 @@ export const Header = () => {
         <p className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">
           <Link to={"/contact"}>Contact</Link>
         </p>
-        <p className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">Cart</p>
+        <p className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">
+          <Link to={"/cart"}>Cart ({cartItems.length} items)</Link>
+        </p>
+
         <button
-          className="login-button p-2 cursor-pointer text-lg text-black bg-gray-300 rounded-md w-20 font-medium hover:text-[#ee3024]"
-          onClick={() => {
-            btn === "Login" ? setBtn("Logout") : setBtn("Login");
-          }}
+          className="login-button p-2 cursor-pointer text-lg text-black bg-gray-300 rounded-md w-28 font-medium hover:text-[#ee3024]"
+          onClick={handleClick}
         >
-          {btn}
+          {logStatus ? "Log Out" : "Log In"}
         </button>
 
-          <p className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">{loggedInUser}</p>
-        
+        <p className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">
+          {user}
+        </p>
       </div>
     </div>
   );
