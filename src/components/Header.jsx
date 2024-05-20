@@ -43,7 +43,7 @@ export const Header = () => {
         <p className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">
           <Link to={"/contact"}>Contact</Link>
         </p>
-        <p className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">
+        <p data-testid="cart" className="px-4 cursor-pointer text-lg text-black font-medium hover:text-[#ee3024]">
           <Link to={"/cart"}>Cart ({cartItems.length} items)</Link>
         </p>
 

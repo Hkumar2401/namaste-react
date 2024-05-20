@@ -10,6 +10,8 @@ const Body = () => {
 
   const [filteredRestaurants, setFilteredRestaurants] = useState(null);
 
+  // console.log(filteredRestaurants);
+
   const [searchText, setSearchText] = useState("");
 
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
@@ -33,6 +35,7 @@ const Body = () => {
     <div className="body mt-5">
       <div className="search-container p-2 flex justify-center items-center">
         <input
+        data-testid="searchInput"
           className="search-bar w-[300px] h-8 rounded-s-md border-solid border-black border-2 p-1 focus:outline-[#ee3024]"
           type="text"
           value={searchText}
@@ -40,7 +43,8 @@ const Body = () => {
             setSearchText(e.target.value);
           }}
         />
-        <p
+        <button
+          data-testid="searchBtn"
           className="search-button me-5 cursor-pointer h-8 bg-gray-300 hover:text-[#ee3024] hover:bg-gray-200 p-2 flex items-center rounded-e-lg"
           onClick={() => {
             setFilteredRestaurants(
@@ -51,7 +55,7 @@ const Body = () => {
           }}
         >
           Search
-        </p>
+        </button>
         <button
           className="cursor-pointer h-8 bg-gray-300 hover:text-[#ee3024] hover:bg-gray-200 p-2 flex items-center rounded-lg"
           onClick={() => {

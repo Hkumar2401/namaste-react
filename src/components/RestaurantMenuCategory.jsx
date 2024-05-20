@@ -12,10 +12,13 @@ const RestaurantMenuCategory = ({
 }) => {
   const { title, itemCards } = data;
 
+  // console.log(data);
+
   return (
     <div className="menu-section flex flex-col mb-12">
       <a href={`#` + title}>
         <div
+          data-testid="category"
           className="menu-section-heading flex justify-between p-2 items-center border-solid border-y-[1px] border-zinc-300 cursor-pointer select-none shadow-md"
           id={title}
           onClick={() => {
@@ -35,7 +38,13 @@ const RestaurantMenuCategory = ({
       <div className="menu-section-content mt-1 flex flex-col justify-center items-center">
         {showItems &&
           itemCards?.map((item) => {
-            return <MenuItemCard key={item?.card?.info?.id} item={item} cartFunctioning={"add"} />;
+            return (
+              <MenuItemCard
+                key={item?.card?.info?.id}
+                item={item}
+                cartFunctioning={"add"}
+              />
+            );
           })}
       </div>
     </div>

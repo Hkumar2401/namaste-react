@@ -5,8 +5,10 @@ const RestaurantCard = (props) => {
     props.resData?.info;
   const { deliveryTime } = props.resData.info.sla;
 
+  // console.log(props.resData);
+
   return (
-    <div className="restaurant-card z-10 w-[350px] h-[420px] border-[1px] border-transparent  hover:border-[#dfdddd] rounded-t-xl rounded-b-lg p-[10px] my-7 mx-4 hover:shadow-zinc-300 hover:shadow-xl">
+    <div data-testid="resCard" className="restaurant-card z-10 w-[350px] h-[420px] border-[1px] border-transparent  hover:border-[#dfdddd] rounded-t-xl rounded-b-lg p-[10px] my-7 mx-4 hover:shadow-zinc-300 hover:shadow-xl">
       <div className="restaurant-card-effect transition-transform scale-100 hover:scale-95 ease-in hover:ease-out duration-200 ">
         <div className="restaurant-image-container">
           <img

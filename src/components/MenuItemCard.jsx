@@ -10,12 +10,15 @@ const MenuItemCard = ({item, cartFunctioning, index}) => {
     const dispatch = useDispatch();
     
     const handleClick = (e) =>{
+      console.log("button clicked");
       e.target.innerText === "Add +" ? 
       dispatch(addItem(item)) : dispatch(removeItem(index))
     }
 
   return (
-    <div className="menu-item-card flex justify-between items-center border-b-[1px] border-solid border-zinc-300 w-full h-[250px] p-2 cursor-pointer">
+    <div 
+    data-testid="item"
+    className="menu-item-card flex justify-between items-center border-b-[1px] border-solid border-zinc-300 w-full h-[250px] p-2 cursor-pointer">
       <div className="menu-item-details w-4/5 flex flex-col">
         <div
           className={`text-[10px] w-fit border-solid rounded-[4px] ${
@@ -43,7 +46,7 @@ const MenuItemCard = ({item, cartFunctioning, index}) => {
             alt=""
           />
         </div>
-        <div className="absolute mt-[90px]">
+        <div data-testid="addBtn" className="absolute mt-[90px]">
           <button
             onClick={handleClick}
             className={`bg-white ${cartFunctioning === "add" ? "text-green-600" : "text-red-600" } font-bold border-[1px] border-zinc-400 shadow-xl hover:bg-zinc-200 rounded-lg p-2 w-[100px]`}
